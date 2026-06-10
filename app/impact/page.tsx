@@ -122,12 +122,14 @@ export default function ImpactPage() {
       <Navbar onDonateClick={() => setShowDonationModal(true)} />
 
       {/* Hero Section */}
-      <section className="relative py-20 px-6 md:py-32 bg-gradient-to-br from-primary/10 to-accent/10">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance">
-            Our Impact
+      <section className="relative py-24 px-6 md:py-36 bg-linear-to-br from-primary/10 via-background to-accent/10 overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-32 -mt-32" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -ml-32 -mb-32" />
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground mb-8 tracking-tight">
+            Our <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent">Impact</span>
           </h1>
-          <p className="text-xl text-foreground/70 mb-8 text-balance">
+          <p className="text-xl md:text-2xl text-foreground/80 mb-8 leading-relaxed max-w-3xl mx-auto">
             Transforming lives and communities across Kenya through sustained, measurable action
           </p>
         </div>
@@ -194,7 +196,7 @@ export default function ImpactPage() {
                   </ul>
                 </div>
 
-                <div className="p-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg border border-primary/20">
+                <div className="p-6 bg-linear-to-br from-primary/10 to-accent/10 rounded-lg border border-primary/20">
                   <p className="text-foreground font-semibold mb-2">Overall Impact</p>
                   <p className="text-foreground/70 leading-relaxed">
                     {story.impact}
@@ -243,7 +245,7 @@ export default function ImpactPage() {
       </section>
 
       {/* Impact Commitment */}
-      <section className="py-16 px-6 md:py-24 bg-gradient-to-br from-primary/10 to-accent/10">
+      <section className="py-16 px-6 md:py-24 bg-linear-to-br from-primary/10 to-accent/10">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-center">
             Our Commitment to Impact
@@ -275,7 +277,7 @@ export default function ImpactPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-6 md:py-24 bg-gradient-to-br from-primary to-secondary">
+      <section className="py-16 px-6 md:py-24 bg-linear-to-br from-primary to-secondary">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
             Create Impact With Us

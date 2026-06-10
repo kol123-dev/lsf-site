@@ -2,15 +2,8 @@
 
 import { useState } from 'react'
 import { ArrowLeft, Loader2 } from 'lucide-react'
-import {
-  useStripe,
-  useElements,
-  CardElement,
-  Elements,
-} from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
+import { usePaystackPayment } from 'react-paystack'
+import { verifyDonation } from '@/app/actions/paystack'
 
 interface PaymentFormProps {
   amount: number
@@ -19,76 +12,80 @@ interface PaymentFormProps {
   onClose: () => void
 }
 
-function PaymentFormContent({ amount, frequency, onBack, onClose }: PaymentFormProps) {
-  const stripe = useStripe()
-  const elements = useElements()
+export default function PaymentForm({ amount, frequency, onBack, onClose }: PaymentFormProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [success, setSuccess] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!stripe || !elements) {
-      setError('Stripe is not loaded')
-      return
+  const config = {
+    reference: (new Date()).getTime().toString(),
+    email: email,
+    amount: amount * 100, // Paystack amount is in kobo/cents (lowest currency unit)
+    currency: 'KES', // Set currency to Kenyan Shillings
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || '',
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "Name",
+          variable_name: "name",
+          value: name
+        },
+        {
+          display_name: "Frequency",
+          variable_name: "frequency",
+          value: frequency
+        }
+      ]
     }
+  }
+
+  const initializePayment = usePaystackPayment(config)
+
+  const onSuccess = async (reference: any) => {
+    setLoading(true) // Keep loading state while verifying
+    try {
+      const result = await verifyDonation(reference.reference)
+      
+      if (result.success) {
+        setSuccess(true)
+        setLoading(false)
+        setTimeout(onClose, 3000)
+      } else {
+        setError(result.message || 'Payment verification failed.')
+        setLoading(false)
+      }
+    } catch (err) {
+      setError('An error occurred during verification.')
+      setLoading(false)
+    }
+  }
+
+  const onClosePayment = () => {
+    setLoading(false)
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
 
     if (!email || !name) {
       setError('Please fill in all fields')
       return
     }
 
+    if (!process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY) {
+      setError('Paystack public key is missing')
+      return
+    }
+
     setLoading(true)
     setError('')
 
-    try {
-      // Create payment intent
-      const response = await fetch('/api/donations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount,
-          frequency,
-          email,
-          name,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to create payment intent')
-      }
-
-      const { clientSecret } = await response.json()
-
-      // Confirm payment
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement)!,
-          billing_details: {
-            name,
-            email,
-          },
-        },
-      })
-
-      if (result.error) {
-        setError(result.error.message || 'Payment failed')
-        setLoading(false)
-      } else if (result.paymentIntent?.status === 'succeeded') {
-        setSuccess(true)
-        setLoading(false)
-        // Close modal after 2 seconds
-        setTimeout(onClose, 2000)
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
-      setLoading(false)
-    }
+    initializePayment({
+      onSuccess,
+      onClose: onClosePayment
+    })
   }
 
   if (success) {
@@ -164,31 +161,6 @@ function PaymentFormContent({ amount, frequency, onBack, onClose }: PaymentFormP
           />
         </div>
 
-        {/* Card Element */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">
-            Card Details
-          </label>
-          <div className="px-4 py-3 border border-border rounded-lg bg-background">
-            <CardElement
-              options={{
-                style: {
-                  base: {
-                    fontSize: '16px',
-                    color: 'var(--color-foreground)',
-                    '::placeholder': {
-                      color: 'var(--color-foreground-70)',
-                    },
-                  },
-                  invalid: {
-                    color: 'var(--color-destructive)',
-                  },
-                },
-              }}
-            />
-          </div>
-        </div>
-
         {/* Error Message */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-3">
@@ -198,19 +170,19 @@ function PaymentFormContent({ amount, frequency, onBack, onClose }: PaymentFormP
 
         {/* Terms */}
         <p className="text-xs text-foreground/60">
-          By donating, you agree to our donation terms. Your payment information is secure and encrypted.
+          By donating, you agree to our donation terms. Your payment information is secure and encrypted by Paystack.
         </p>
 
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={loading || !stripe || !elements}
+          disabled={loading}
           className="w-full py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-semibold flex items-center justify-center gap-2"
         >
           {loading ? (
             <>
               <Loader2 size={18} className="animate-spin" />
-              Processing...
+              Initializing...
             </>
           ) : (
             `Donate KSh ${amount.toLocaleString()}`
@@ -218,13 +190,5 @@ function PaymentFormContent({ amount, frequency, onBack, onClose }: PaymentFormP
         </button>
       </form>
     </>
-  )
-}
-
-export default function PaymentForm(props: PaymentFormProps) {
-  return (
-    <Elements stripe={stripePromise}>
-      <PaymentFormContent {...props} />
-    </Elements>
   )
 }

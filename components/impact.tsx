@@ -48,26 +48,29 @@ export default function Impact() {
         </div>
 
         {/* Impact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="group rounded-xl border border-border bg-card p-8 hover:shadow-lg hover:border-primary/50 transition-all duration-300 text-center"
+              className="group relative rounded-2xl border border-border/50 bg-card p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 text-center overflow-hidden"
             >
+              {/* Background Decoration */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700 ease-out" />
+              
               {/* Number */}
-              <div className="mb-4">
-                <p className="text-4xl sm:text-5xl font-bold text-primary group-hover:text-accent transition-colors">
+              <div className="mb-4 relative z-10">
+                <p className="text-5xl sm:text-6xl font-black bg-clip-text text-transparent bg-linear-to-r from-primary to-accent group-hover:scale-110 transition-transform duration-300 inline-block">
                   {stat.number}
                 </p>
               </div>
 
               {/* Label */}
-              <h3 className="text-xl font-semibold text-foreground mb-2">
+              <h3 className="text-xl font-bold text-foreground mb-3 relative z-10">
                 {stat.label}
               </h3>
 
               {/* Description */}
-              <p className="text-sm text-foreground/60">
+              <p className="text-base text-foreground/70 relative z-10">
                 {stat.description}
               </p>
             </div>

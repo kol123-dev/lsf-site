@@ -84,12 +84,14 @@ export default function ProgramsPage() {
       <Navbar onDonateClick={() => setShowDonationModal(true)} />
 
       {/* Hero Section */}
-      <section className="relative py-20 px-6 md:py-32 bg-gradient-to-br from-primary/10 to-accent/10">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance">
-            Our Programs
+      <section className="relative py-24 px-6 md:py-36 bg-linear-to-br from-primary/10 via-background to-accent/10 overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-32 -mt-32" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -ml-32 -mb-32" />
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground mb-8 tracking-tight">
+            Our <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent">Programs</span>
           </h1>
-          <p className="text-xl text-foreground/70 mb-8 text-balance">
+          <p className="text-xl md:text-2xl text-foreground/80 mb-8 leading-relaxed max-w-3xl mx-auto">
             Tackling Kenya&apos;s most pressing challenges through three interconnected pillars of change
           </p>
         </div>
@@ -208,7 +210,7 @@ export default function ProgramsPage() {
       })}
 
       {/* Integration Section */}
-      <section className="py-24 px-6 md:py-32 bg-gradient-to-br from-primary/5 to-accent/5">
+      <section className="py-24 px-6 md:py-32 bg-linear-to-br from-primary/5 to-accent/5">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-center">
             How Our Programs Work Together
@@ -238,7 +240,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-6 md:py-24 bg-gradient-to-br from-primary to-secondary">
+      <section className="py-16 px-6 md:py-24 bg-linear-to-br from-primary to-secondary">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
             Support These Life-Changing Programs

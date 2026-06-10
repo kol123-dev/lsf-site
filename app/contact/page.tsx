@@ -93,12 +93,14 @@ export default function ContactPage() {
       <Navbar onDonateClick={openDonation} />
 
       {/* Hero Section */}
-      <section className="relative py-20 px-6 md:py-32 bg-gradient-to-br from-primary/10 to-accent/10">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance">
-            Get In Touch
+      <section className="relative py-24 px-6 md:py-36 bg-linear-to-br from-primary/10 via-background to-accent/10 overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-32 -mt-32" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -ml-32 -mb-32" />
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground mb-8 tracking-tight">
+            Get <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent">In Touch</span>
           </h1>
-          <p className="text-xl text-foreground/70 mb-8 text-balance">
+          <p className="text-xl md:text-2xl text-foreground/80 mb-8 leading-relaxed max-w-3xl mx-auto">
             We&apos;d love to hear from you. Reach out with questions, partnership opportunities, or to learn more about our work.
           </p>
         </div>

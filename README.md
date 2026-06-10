@@ -21,9 +21,9 @@ A modern, robust, multi-page website for the Lillian Siyoi Foundation built with
 - **Modal Interface**: Beautiful, accessible donation modal with backdrop
 - **Frequency Toggle**: One-time or monthly donation options
 - **Preset Amounts**: Quick-select donation tiers (KSh 1,000 / 5,000 / 10,000)
-- **Custom Amounts**: Input custom donation amounts with live preview
+- **Custom Amounts**: Input custom donation amounts with live preview```
 - **Stripe Integration**: Secure payment processing with Stripe Elements
-- **Payment Form**: Card details collection with proper validation and error handling
+```- **Payment Form**: Card details collection with proper validation and error handling
 - **Success Confirmation**: Post-donation success message with thank you note
 
 ### 🎨 Professional Visual Design

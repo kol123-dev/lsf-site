@@ -87,37 +87,47 @@ export default function HeroCarousel({ onDonateClick }: { onDonateClick: () => v
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            {/* Background Image */}
+            {/* Background Image with Ken Burns effect */}
             <Image
               src={slide.image}
               alt={slide.title}
               fill
-              className="object-cover"
+              className={`object-cover transition-transform duration-10000 ease-out ${
+                index === currentSlide ? 'scale-110' : 'scale-100'
+              }`}
               priority={index === 0}
+              sizes="100vw"
             />
 
-            {/* Dark Overlay for readability */}
-            <div className="absolute inset-0 bg-black/40" />
+            {/* Gradient Overlay for better readability */}
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/20" />
 
             {/* Content Overlay */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-              <div className="max-w-2xl space-y-6 animate-fade-in">
-                <h1 className="text-4xl md:text-6xl font-bold text-white text-balance">
+              <div
+                className={`max-w-3xl space-y-6 transition-all duration-1000 transform ${
+                  index === currentSlide
+                    ? 'opacity-100 translate-y-0 delay-300'
+                    : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <h1 className="text-4xl md:text-6xl font-bold text-white text-balance drop-shadow-md">
                   {slide.title}
                 </h1>
-                <p className="text-lg md:text-xl text-gray-100 text-balance">
+                <p className="text-lg md:text-xl text-gray-100 text-balance drop-shadow">
                   {slide.description}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
                   <button
                     onClick={onDonateClick}
-                    className="px-8 py-3 bg-accent hover:bg-accent/90 text-foreground font-semibold rounded-lg transition-colors"
+                    className="group relative px-8 py-3.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
                   >
                     Make a Donation
+                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
                   <a
                     href="/about"
-                    className="px-8 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg backdrop-blur-sm transition-colors"
+                    className="px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-full backdrop-blur-md border border-white/20 hover:border-white/40 transition-all flex items-center justify-center"
                   >
                     Learn More
                   </a>
@@ -151,10 +161,10 @@ export default function HeroCarousel({ onDonateClick }: { onDonateClick: () => v
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
+            className={`h-2.5 rounded-full transition-all duration-300 ${
               index === currentSlide
-                ? 'bg-accent w-8'
-                : 'bg-white/50 hover:bg-white/70'
+                ? 'bg-primary w-8'
+                : 'bg-white/50 hover:bg-white/80 w-2.5'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

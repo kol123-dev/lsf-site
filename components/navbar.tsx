@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 
 interface NavbarProps {
@@ -24,10 +25,18 @@ export default function Navbar({ onDonateClick }: NavbarProps) {
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex-shrink-0 font-bold text-xl text-primary">
-            LSF
+          <div className="flex-shrink-0">
+            <a href="/" className="block relative h-16 w-32">
+              <Image 
+                src="/LSFlogo.png" 
+                alt="Lillian Siyoi Foundation Logo" 
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </a>
           </div>
 
           {/* Desktop Navigation */}

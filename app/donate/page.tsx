@@ -85,17 +85,19 @@ export default function DonatePage() {
       <Navbar onDonateClick={() => setShowDonationModal(true)} />
 
       {/* Hero Section */}
-      <section className="relative py-20 px-6 md:py-32 bg-gradient-to-br from-primary to-secondary">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 text-balance">
-            Make a Real Impact
+      <section className="relative py-24 px-6 md:py-36 bg-linear-to-br from-primary via-primary/90 to-secondary overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -ml-32 -mb-32" />
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-primary-foreground mb-8 tracking-tight">
+            Make a <span className="text-transparent bg-clip-text bg-linear-to-r from-white to-white/70">Real Impact</span>
           </h1>
-          <p className="text-xl text-primary-foreground/90 mb-8 text-balance">
+          <p className="text-xl md:text-2xl text-primary-foreground/90 mb-10 leading-relaxed max-w-3xl mx-auto">
             Your generosity fuels our mission to empower communities across Kenya through climate action, health, and education.
           </p>
           <button
             onClick={() => setShowDonationModal(true)}
-            className="inline-block px-8 py-4 bg-primary-foreground hover:bg-primary-foreground/90 text-primary font-semibold rounded-lg transition-colors text-lg"
+            className="inline-block px-10 py-5 bg-white hover:bg-white/90 text-primary font-bold rounded-full transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 text-lg"
           >
             Donate Now
           </button>
@@ -350,7 +352,7 @@ export default function DonatePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 px-6 md:py-24 bg-gradient-to-br from-primary to-secondary">
+      <section className="py-16 px-6 md:py-24 bg-linear-to-br from-primary to-secondary">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
             Ready to Make a Difference?

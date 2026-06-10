@@ -180,7 +180,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
 
                 {/* Trust Badge */}
                 <p className="text-xs text-foreground/60 text-center">
-                  🔒 Secure payment powered by Stripe
+                  🔒 Secure payment powered by Paystack
                 </p>
               </div>
             </>

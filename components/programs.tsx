@@ -67,28 +67,31 @@ export default function Programs() {
                 </div>
 
                 {/* Content */}
-                <div className="p-8">
+                <div className="p-8 flex flex-col h-full">
                   {/* Icon */}
-                  <div className={`${program.bgColor} w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <Icon className={`${program.color} w-6 h-6`} />
+                  <div className={`${program.bgColor} w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm`}>
+                    <Icon className={`${program.color} w-7 h-7`} />
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-semibold text-foreground mb-3">
+                  <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                     {program.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-foreground/70 leading-relaxed">
+                  <p className="text-foreground/70 leading-relaxed mb-6 grow">
                     {program.description}
                   </p>
 
                   {/* Learn More Link */}
                   <a
                     href="#"
-                    className="inline-block mt-4 text-primary hover:text-primary/80 font-medium text-sm group-hover:translate-x-1 transition-transform"
+                    className="inline-flex items-center text-primary hover:text-primary/80 font-semibold text-sm group-hover:translate-x-2 transition-transform w-fit"
                   >
-                    Learn more →
+                    Learn more
+                    <svg className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </a>
                 </div>
               </div>

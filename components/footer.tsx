@@ -1,6 +1,7 @@
 'use client'
 
 import { Mail, MapPin, Phone } from 'lucide-react'
+import Image from 'next/image'
 
 interface FooterProps {
   onDonateClick: () => void
@@ -16,7 +17,14 @@ export default function Footer({ onDonateClick }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* About */}
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">Lillian Siyoi Foundation</h3>
+            <div className="relative h-16 w-32 mb-6">
+              <Image 
+                src="/LSFlogo.png" 
+                alt="Lillian Siyoi Foundation Logo" 
+                fill
+                className="object-contain object-left brightness-0 invert" 
+              />
+            </div>
             <p className="text-background/80 text-sm leading-relaxed">
               Building sustainable futures through climate action, health initiatives, and transformative education across Kenya.
             </p>
@@ -65,23 +73,26 @@ export default function Footer({ onDonateClick }: FooterProps) {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Newsletter / Call to Action */}
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">Contact Us</h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-start gap-3">
-                <MapPin size={18} className="flex-shrink-0 mt-1" />
-                <span className="text-background/80">Nairobi, Kenya</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Phone size={18} className="flex-shrink-0 mt-1" />
-                <span className="text-background/80">+254 (0) 700 000 000</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Mail size={18} className="flex-shrink-0 mt-1" />
-                <span className="text-background/80">info@lilliansiyoifoundation.org</span>
-              </div>
-            </div>
+            <h3 className="text-lg font-bold">Stay Updated</h3>
+            <p className="text-background/80 text-sm leading-relaxed mb-4">
+              Subscribe to our newsletter to receive updates on our impact and upcoming programs.
+            </p>
+            <form className="flex flex-col gap-3">
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="bg-background/10 border border-background/20 text-background placeholder:text-background/50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full"
+                required
+              />
+              <button 
+                type="submit" 
+                className="w-full px-4 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-lg transition-colors text-sm"
+              >
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
 
@@ -89,18 +100,18 @@ export default function Footer({ onDonateClick }: FooterProps) {
         <div className="border-t border-background/20 mb-8" />
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <p className="text-background/60 text-sm">
             &copy; {currentYear} Lillian Siyoi Foundation. All rights reserved.
           </p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="text-background/60 hover:text-background text-sm transition-colors">
+          <div className="flex flex-wrap justify-center gap-6">
+            <a href="#" className="text-background/60 hover:text-white text-sm transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-background/60 hover:text-background text-sm transition-colors">
+            <a href="#" className="text-background/60 hover:text-white text-sm transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="text-background/60 hover:text-background text-sm transition-colors">
+            <a href="#" className="text-background/60 hover:text-white text-sm transition-colors">
               Collaborations
             </a>
           </div>

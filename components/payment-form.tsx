@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import { usePaystackPayment } from 'react-paystack'
 import { verifyDonation } from '@/app/actions/paystack'
@@ -18,6 +18,11 @@ export default function PaymentForm({ amount, frequency, onBack, onClose }: Paym
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [success, setSuccess] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const config = {
     reference: (new Date()).getTime().toString(),
@@ -41,7 +46,8 @@ export default function PaymentForm({ amount, frequency, onBack, onClose }: Paym
     }
   }
 
-  const initializePayment = usePaystackPayment(config)
+  // Remove the conditional hook rule violation, the dynamic import solves the SSR issue entirely
+  const initializePayment = usePaystackPayment(config);
 
   const onSuccess = async (reference: any) => {
     setLoading(true) // Keep loading state while verifying

@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
-import PaymentForm from './payment-form'
+import dynamic from 'next/dynamic'
+
+// Dynamically import PaymentForm to avoid SSR "window is not defined" issues with react-paystack
+const PaymentForm = dynamic(() => import('./payment-form'), { ssr: false })
 
 interface DonationModalProps {
   isOpen: boolean

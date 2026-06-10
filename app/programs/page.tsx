@@ -170,7 +170,7 @@ export default function ProgramsPage() {
                     <ul className="space-y-3">
                       {program.details.map((detail, idx) => (
                         <li key={idx} className="flex items-start gap-3 text-foreground/70">
-                          <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                          <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
                           <span>{detail}</span>
                         </li>
                       ))}

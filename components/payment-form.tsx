@@ -17,6 +17,9 @@ export default function PaymentForm({ amount, frequency, onBack, onClose }: Paym
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
 
+  const currency = process.env.NEXT_PUBLIC_CURRENCY || 'KES'
+  const currencySymbol = currency === 'USD' ? '$' : 'KSh '
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -67,7 +70,7 @@ export default function PaymentForm({ amount, frequency, onBack, onClose }: Paym
             {frequency === 'monthly' ? 'Monthly donation:' : 'Donation amount:'}
           </p>
           <p className="text-2xl font-bold text-primary">
-            KSh {amount.toLocaleString()}
+            {currencySymbol}{amount.toLocaleString()}
           </p>
         </div>
 
@@ -123,7 +126,7 @@ export default function PaymentForm({ amount, frequency, onBack, onClose }: Paym
               Initializing...
             </>
           ) : (
-            `Donate KSh ${amount.toLocaleString()}`
+            `Donate ${currencySymbol}${amount.toLocaleString()}`
           )}
         </button>
       </form>

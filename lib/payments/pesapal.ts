@@ -69,7 +69,7 @@ export class PesapalProvider implements PaymentProvider {
       },
       body: JSON.stringify({
         id: reference,
-        currency: 'USD',
+        currency: process.env.NEXT_PUBLIC_CURRENCY || 'KES',
         amount: amount,
         description: 'Donation to Lillian Siyoi Foundation',
         callback_url: `${process.env.NEXT_PUBLIC_APP_URL}/donate/verify`,

@@ -29,7 +29,9 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
     }
   }, [isOpen])
 
-  const presetAmounts = [25, 50, 250]
+  const currency = process.env.NEXT_PUBLIC_CURRENCY || 'KES'
+  const currencySymbol = currency === 'USD' ? '$' : 'KSh '
+  const presetAmounts = currency === 'USD' ? [25, 50, 250] : [1000, 5000, 10000]
 
   const selectedAmount = customAmount ? parseInt(customAmount) : amount
 
@@ -116,7 +118,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                 {/* Preset Amounts */}
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-foreground">
-                    Select Amount (USD)
+                    Select Amount ({currency})
                   </label>
                   <div className="grid grid-cols-3 gap-3">
                     {presetAmounts.map((preset) => (
@@ -141,7 +143,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                 {/* Custom Amount */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">
-                    Custom Amount (USD)
+                    Custom Amount ({currency})
                   </label>
                   <input
                     type="number"
@@ -162,11 +164,11 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                       {frequency === 'monthly' ? 'Monthly donation:' : 'Donation amount:'}
                     </p>
                     <p className="text-2xl font-bold text-primary">
-                      ${selectedAmount.toLocaleString()}
+                      {currencySymbol}{selectedAmount.toLocaleString()}
                     </p>
                     {frequency === 'monthly' && (
                       <p className="text-xs text-foreground/60 mt-2">
-                        ${(selectedAmount * 12).toLocaleString()} per year
+                        {currencySymbol}{(selectedAmount * 12).toLocaleString()} per year
                       </p>
                     )}
                   </div>

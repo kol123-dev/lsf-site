@@ -16,7 +16,7 @@ export class InstasendProvider implements PaymentProvider {
       },
       body: JSON.stringify({
         amount: amount,
-        currency: 'USD',
+        currency: process.env.NEXT_PUBLIC_CURRENCY || 'KES',
         email: email,
         customer_name: name,
         reference: reference,

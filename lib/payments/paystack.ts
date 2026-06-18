@@ -13,7 +13,7 @@ export class PaystackProvider implements PaymentProvider {
       body: JSON.stringify({
         amount: amount * 100, // Paystack expects lowest denomination (Cents)
         email,
-        currency: 'USD',
+        currency: process.env.NEXT_PUBLIC_CURRENCY || 'KES',
         callback_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/donate/verify`,
         metadata: { custom_fields: [{ display_name: "Name", variable_name: "name", value: name }] }
       }),

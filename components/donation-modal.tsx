@@ -29,7 +29,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
     }
   }, [isOpen])
 
-  const presetAmounts = [1000, 5000, 10000]
+  const presetAmounts = [25, 50, 250]
 
   const selectedAmount = customAmount ? parseInt(customAmount) : amount
 
@@ -116,7 +116,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                 {/* Preset Amounts */}
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-foreground">
-                    Select Amount (KSh)
+                    Select Amount (USD)
                   </label>
                   <div className="grid grid-cols-3 gap-3">
                     {presetAmounts.map((preset) => (
@@ -141,7 +141,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                 {/* Custom Amount */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">
-                    Custom Amount (KSh)
+                    Custom Amount (USD)
                   </label>
                   <input
                     type="number"
@@ -162,11 +162,11 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                       {frequency === 'monthly' ? 'Monthly donation:' : 'Donation amount:'}
                     </p>
                     <p className="text-2xl font-bold text-primary">
-                      KSh {selectedAmount.toLocaleString()}
+                      ${selectedAmount.toLocaleString()}
                     </p>
                     {frequency === 'monthly' && (
                       <p className="text-xs text-foreground/60 mt-2">
-                        KSh {(selectedAmount * 12).toLocaleString()} per year
+                        ${(selectedAmount * 12).toLocaleString()} per year
                       </p>
                     )}
                   </div>

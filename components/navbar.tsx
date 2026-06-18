@@ -27,7 +27,7 @@ export default function Navbar({ onDonateClick }: NavbarProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <a href="/" className="block relative h-16 w-32">
               <Image 
                 src="/LSFlogo.png" 

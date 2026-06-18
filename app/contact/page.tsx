@@ -40,10 +40,10 @@ export default function ContactPage() {
   const offices = [
     {
       name: 'Head Office',
-      location: 'Nairobi, Kenya',
-      address: '123 Green Street, Nairobi 00100',
+      location: 'KITALE, Kenya',
+      address: '123 Green Street, KITALE 00100',
       email: 'info@lilliansiyoi.org',
-      phone: '+254 (0) 123 456 789',
+      phone: '+254 719 754 617',
     },
     {
       name: 'Regional Office',
@@ -119,12 +119,12 @@ export default function ContactPage() {
             <div className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-lg hover:border-primary/50 transition-all duration-300">
               <Phone className="text-accent w-8 h-8 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
-              <p className="text-accent font-medium text-sm mb-2">+254 (0) 123 456 789</p>
+              <p className="text-accent font-medium text-sm mb-2">+254 719 754 617</p>
               <p className="text-xs text-foreground/70">Call us during office hours</p>
             </div>
             <div className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-lg hover:border-primary/50 transition-all duration-300">
               <MapPin className="text-secondary w-8 h-8 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-foreground mb-2">Nairobi HQ</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-2">KITALE HQ</h3>
               <p className="text-secondary font-medium text-sm mb-2">Head Office</p>
               <p className="text-xs text-foreground/70">Kenya</p>
             </div>

@@ -222,4 +222,4 @@ pnpm start
 For issues or questions, please contact:
 - Email: info@lilliansiyoifoundation.org
 - Phone: +254 (0) 700 000 000
-- Location: Nairobi, Kenya
+- Location: KITALE, Kenya

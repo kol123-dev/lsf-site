@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ArrowLeft, Loader2 } from 'lucide-react'
-import { usePaystackPayment } from 'react-paystack'
-import { verifyDonation } from '@/app/actions/paystack'
+import { initiateDonationAction } from '@/app/actions/payments'
 
 interface PaymentFormProps {
   amount: number
@@ -17,62 +16,8 @@ export default function PaymentForm({ amount, frequency, onBack, onClose }: Paym
   const [error, setError] = useState('')
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const [success, setSuccess] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
 
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  const config = {
-    reference: (new Date()).getTime().toString(),
-    email: email,
-    amount: amount * 100, // Paystack amount is in kobo/cents (lowest currency unit)
-    currency: 'KES', // Set currency to Kenyan Shillings
-    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || '',
-    metadata: {
-      custom_fields: [
-        {
-          display_name: "Name",
-          variable_name: "name",
-          value: name
-        },
-        {
-          display_name: "Frequency",
-          variable_name: "frequency",
-          value: frequency
-        }
-      ]
-    }
-  }
-
-  // Remove the conditional hook rule violation, the dynamic import solves the SSR issue entirely
-  const initializePayment = usePaystackPayment(config);
-
-  const onSuccess = async (reference: any) => {
-    setLoading(true) // Keep loading state while verifying
-    try {
-      const result = await verifyDonation(reference.reference)
-      
-      if (result.success) {
-        setSuccess(true)
-        setLoading(false)
-        setTimeout(onClose, 3000)
-      } else {
-        setError(result.message || 'Payment verification failed.')
-        setLoading(false)
-      }
-    } catch (err) {
-      setError('An error occurred during verification.')
-      setLoading(false)
-    }
-  }
-
-  const onClosePayment = () => {
-    setLoading(false)
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!email || !name) {
@@ -80,37 +25,24 @@ export default function PaymentForm({ amount, frequency, onBack, onClose }: Paym
       return
     }
 
-    if (!process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY) {
-      setError('Paystack public key is missing')
-      return
-    }
-
     setLoading(true)
     setError('')
 
-    initializePayment({
-      onSuccess,
-      onClose: onClosePayment
-    })
-  }
-
-  if (success) {
-    return (
-      <div className="p-6 text-center space-y-4">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h3 className="text-xl font-bold text-foreground">Donation Successful!</h3>
-        <p className="text-foreground/70">
-          Thank you for your generous contribution to the Lillian Siyoi Foundation.
-        </p>
-        <p className="text-sm text-foreground/60">
-          A confirmation email has been sent to {email}
-        </p>
-      </div>
-    )
+    try {
+      const result = await initiateDonationAction(amount, email, name);
+      
+      if (result.success && result.url) {
+        // Redirect the user to the generic payment gateway URL (Paystack/Pesapal/Instasend)
+        window.location.href = result.url;
+      } else {
+        setError(result.message || 'Failed to initialize payment. Please try again.')
+        setLoading(false)
+      }
+    } catch (err) {
+      console.error(err)
+      setError('An unexpected error occurred.')
+      setLoading(false)
+    }
   }
 
   return (
